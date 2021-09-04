@@ -10,7 +10,7 @@
 
         function test_connection_relay(){
             let xhr = new XMLHttpRequest();
-            xhr.open("GET", "https://relay2.secureservice.rinfra.ricoh.com/");
+            xhr.open("OPTIONS", "https://relay2.secureservice.rinfra.ricoh.com/");
 
             xhr.onload = function() {
                 if (xhr.status == 426) {
