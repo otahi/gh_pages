@@ -1,0 +1,64 @@
+<html>
+<header>
+    <script>
+        function loadFinished(){
+            document.getElementById("result_relay").setAttribute("style", style_ok);
+            document.getElementById("result_iot").setAttribute("style", style_ok);
+        }
+        const style_ok = "display:inline; color:green; font-size:24px"
+        const style_ng = "display:inline; color:red; font-size:24px"
+
+        function test_connection_relay(){
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://relay2.secureservice.rinfra.ricoh.com/v1/via/");
+
+            xhr.onload = function() {
+                if (xhr.status == 426) {
+                    document.getElementById("result_relay_ok").setAttribute("style", style_ok);
+                } else {
+                    document.getElementById("result_relay_ng").setAttribute("style", style_ng);
+                }
+            }
+            xhr.send();
+        };
+
+        function test_connection_iot(){
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://a3uxo37n3r3agw-ats.iot.ap-northeast-1.amazonaws.com/");
+
+            xhr.onload = function() {
+                if (xhr.status == 404) {
+                    document.getElementById("result_iot_ok").setAttribute("style", style_ok);
+                } else {
+                    document.getElementById("result_iot_ng").setAttribute("style", style_ng);
+                }
+            }
+            xhr.send();
+        };
+
+        function test_connection(){
+            test_connection_relay();
+            test_connection_iot();
+        }
+
+        window.onload = test_connection;
+    </script>
+</header>
+<body>
+
+
+<h1> セキュアリモートワークプレイスサービスのテスト </h1>
+
+<ul>
+    <li id="relay">relay2.secureservice.rinfra.ricoh.com
+        <div id="result_relay_ok" style="display:none">🆗OK</div>
+        <div id="result_relay_ng" style="display:none">🆖NG</div>
+    </li>
+    <li id="iot">a3uxo37n3r3agw-ats.iot.ap-northeast-1.amazonaws.com
+        <div id="result_iot_ok" style="display:none">🆗OK</div>
+        <div id="result_iot_ng" style="display:none">🆖NG</div>
+    </li>
+</ul>
+
+</body>
+</html>
